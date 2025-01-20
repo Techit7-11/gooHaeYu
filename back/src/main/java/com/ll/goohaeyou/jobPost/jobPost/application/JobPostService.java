@@ -69,6 +69,7 @@ public class JobPostService {
         essentialDomainService.create(newPost.getId(), request.minAge(), request.gender());
     }
 
+    @Transactional
     public JobPostDetailResponse getJobPostDetail(Long id, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         userActivityService.handleJobPostView(id, httpRequest, httpResponse);
 
@@ -134,7 +135,6 @@ public class JobPostService {
         );
     }
 
-    @Cacheable(value = "jobPostsBySort", key = "#sortBys + '_' + #sortOrders + '_' + #page", condition = "#page <= 5")
     public JobPostSortPageResponse findBySort(int page, List<String> sortBys, List<String> sortOrders) {
 
         Pageable pageable = PaginationUtils.buildPageableWithSorts(sortBys, sortOrders, page);

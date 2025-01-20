@@ -9,17 +9,21 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 @DomainService
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class UserActivityService {
     private final JobPostRepository jobPostRepository;
 
-    @Transactional
     public void handleJobPostView(Long jobPostId, HttpServletRequest request, HttpServletResponse response) {
         final String VIEWED_JOB_POSTS_COOKIE = "viewedJobPosts";
+
+        String userAgent = request.getHeader("User-Agent");
+
+        if (userAgent == null || userAgent.equals("node")) {
+            return;
+        }
+
         boolean isJobPostAlreadyVisited = checkJobPostVisited(request, jobPostId, VIEWED_JOB_POSTS_COOKIE);
 
         JobPost jobPost = jobPostRepository.findById(jobPostId)

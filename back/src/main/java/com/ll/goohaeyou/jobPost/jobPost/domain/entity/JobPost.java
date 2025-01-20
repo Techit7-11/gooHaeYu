@@ -11,9 +11,7 @@ import java.time.LocalDate;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@Table(name = "job_post", indexes = {
-        @Index(name = "idx_created_at", columnList = "created_at")
-})
+@Table(name = "job_post")
 @NoArgsConstructor(access = PROTECTED)
 @Getter
 public class JobPost extends BaseTimeEntity {

@@ -10,6 +10,7 @@ import java.util.List;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
+@Table(name = "category")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 public class Category {

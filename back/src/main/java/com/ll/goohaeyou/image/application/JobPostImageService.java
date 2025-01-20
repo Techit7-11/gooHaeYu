@@ -36,8 +36,6 @@ public class JobPostImageService {
     public List<String> getJobPostImages(Long postDetailId) {
         List<JobPostImage> postImages = jobPostImageDomainService.getByJobPostDetailId(postDetailId);
 
-        jobPostImagePolicy.verifyPostImagesNotEmpty(postImages);
-
         return postImages.stream()
                 .map(JobPostImage::getJobPostImageUrl)
                 .toList();
